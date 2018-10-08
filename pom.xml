@@ -13,6 +13,7 @@
         <module>netty-rpc</module>
         <module>netty-study</module>
         <module>netty-in-action</module>
+        <module>netty-im-wechat</module>
     </modules>
     <name>quickstart</name>
 
