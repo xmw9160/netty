@@ -39,7 +39,7 @@ public class FirstServerHandler extends ChannelInboundHandlerAdapter {
 
     private ByteBuf getByteBuf(ChannelHandlerContext ctx) {
         ByteBuf buffer = ctx.alloc().buffer();
-        buffer.writeBytes("欢迎来到一座来了就不想走得城市-成都".getBytes(charset));
+        buffer.writeBytes("欢迎来到一座来了就不想走的城市-成都".getBytes(charset));
         return buffer;
     }
 }
