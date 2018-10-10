@@ -4,10 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xmw.wechat.protocol.LoginRequestPacket;
+import com.xmw.wechat.protocol.LoginResponsePacket;
 import com.xmw.wechat.serialize.Serializer;
 import com.xmw.wechat.serialize.impl.JsonSerializer;
 
 import static com.xmw.wechat.protocol.common.Command.LOGIN_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.LOGIN_RESPONSE;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -26,6 +28,7 @@ public class PacketCodec {
     static {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
+        packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JsonSerializer();
