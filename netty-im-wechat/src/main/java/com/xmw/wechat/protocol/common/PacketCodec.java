@@ -3,13 +3,17 @@ package com.xmw.wechat.protocol.common;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.xmw.wechat.protocol.LoginRequestPacket;
-import com.xmw.wechat.protocol.LoginResponsePacket;
+import com.xmw.wechat.protocol.request.LoginRequestPacket;
+import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.serialize.Serializer;
 import com.xmw.wechat.serialize.impl.JsonSerializer;
 
 import static com.xmw.wechat.protocol.common.Command.LOGIN_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.LOGIN_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.MESSAGE_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.MESSAGE_RESPONSE;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
 
@@ -25,10 +29,14 @@ public class PacketCodec {
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private static final Map<Byte, Serializer> serializerMap;
 
+    private PacketCodec(){}
+
     static {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JsonSerializer();

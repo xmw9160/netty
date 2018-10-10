@@ -1,4 +1,4 @@
-package com.xmw.wechat.protocol;
+package com.xmw.wechat.protocol.request;
 
 import com.xmw.wechat.protocol.common.Command;
 import com.xmw.wechat.protocol.common.Packet;

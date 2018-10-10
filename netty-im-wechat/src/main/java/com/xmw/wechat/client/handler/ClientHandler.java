@@ -2,10 +2,12 @@ package com.xmw.wechat.client.handler;
 
 import java.util.Date;
 
-import com.xmw.wechat.protocol.LoginRequestPacket;
-import com.xmw.wechat.protocol.LoginResponsePacket;
+import com.xmw.wechat.protocol.request.LoginRequestPacket;
+import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.protocol.common.Packet;
 import com.xmw.wechat.protocol.common.PacketCodec;
+import com.xmw.wechat.util.LoginUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -45,10 +47,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         if (packet instanceof LoginResponsePacket) {
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet;
             if (responsePacket.getIsSuccess()) {
+                LoginUtil.markAsLogin(ctx.channel());
                 System.out.println(new Date() + ": 客户端登录成功");
             } else {
                 System.out.println(new Date() + ": 客户端登录失败，原因：" + responsePacket.getReason());
             }
+        } else if (packet instanceof MessageResponsePacket) {
+            MessageResponsePacket responsePacket = (MessageResponsePacket) packet;
+            System.out.println(new Date() +" : 收到服务端消息: " + responsePacket.getMessage());
         }
     }
 }

@@ -1,8 +1,15 @@
 package com.xmw.wechat.client;
 
+import java.util.Scanner;
+
 import com.xmw.wechat.client.handler.ClientHandler;
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.common.PacketCodec;
+import com.xmw.wechat.util.LoginUtil;
 
 import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -33,9 +40,28 @@ public class WechatClient {
         bootstrap.connect("127.0.0.1", 8888).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("连接服务器成功");
+                // 连接成功之后，启动控制台线程
+                startConsoleThread(((ChannelFuture)future).channel());
             } else {
                 System.out.println("连接服务器失败");
             }
         });
+    }
+
+    private static void startConsoleThread(Channel channel) {
+        new Thread(() -> {
+            while (!Thread.interrupted()) {
+                // 登录成功
+                if (LoginUtil.hasLogin(channel)) {
+                    System.out.print("客户端发送消息: ");
+                    Scanner sc = new Scanner(System.in);
+                    String message = sc.nextLine();
+
+                    MessageRequestPacket requestPacket = new MessageRequestPacket();
+                    requestPacket.setMessage(message);
+                    channel.writeAndFlush(PacketCodec.encode(requestPacket));
+                }
+            }
+        }).start();
     }
 }
