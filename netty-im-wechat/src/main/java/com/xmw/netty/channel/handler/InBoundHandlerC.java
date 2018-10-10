@@ -2,6 +2,7 @@ package com.xmw.netty.channel.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.util.AttributeKey;
 
 /**
  * InBoundHandlerC
@@ -12,8 +13,8 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class InBoundHandlerC extends ChannelInboundHandlerAdapter {
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("InBoundHandlerC: " + msg);
-        super.channelRead(ctx, msg);
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        System.out.println("InBoundHandlerC: " + msg + ", time: " + ctx.channel().attr(Constants.TIME).get());
+        ctx.channel().writeAndFlush(msg);
     }
 }
