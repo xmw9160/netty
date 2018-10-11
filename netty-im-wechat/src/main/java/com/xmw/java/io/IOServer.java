@@ -2,6 +2,7 @@ package com.xmw.java.io;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -37,6 +38,8 @@ public class IOServer {
                             while ((len = inputStream.read(data)) != -1) {
                                 System.out.println("接收数据: " + new String(data, 0, len));
                             }
+                            OutputStream outputStream = socket.getOutputStream();
+
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

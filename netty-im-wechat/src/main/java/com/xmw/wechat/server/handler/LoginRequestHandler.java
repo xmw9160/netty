@@ -2,6 +2,7 @@ package com.xmw.wechat.server.handler;
 
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.util.LoginUtil;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
@@ -21,6 +22,8 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
         responsePacket.setVersion(msg.getVersion());
         System.out.println("用户" + msg.getUserId() + ": 请求登录....");
         if (validate(msg)) {
+            LoginUtil.markAsLogin(ctx.channel());
+
             responsePacket.setIsSuccess(true);
             responsePacket.setReason("登录成功!!");
         } else {

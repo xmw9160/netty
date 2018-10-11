@@ -6,6 +6,7 @@ import java.util.concurrent.TimeUnit;
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
+import com.xmw.wechat.server.handler.AuthHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.LoginRequestHandler;
 import com.xmw.wechat.server.handler.MessageRequestHandler;
@@ -48,6 +49,8 @@ public class WechatServer {
                         pipeline.addLast(new PacketDecoder());
                         // 登录请求处理
                         pipeline.addLast(new LoginRequestHandler());
+                        // 认证处理
+                        pipeline.addLast(new AuthHandler());
                         // 消息请求处理
                         pipeline.addLast(new MessageRequestHandler());
                         // 响应编码
@@ -58,9 +61,9 @@ public class WechatServer {
             if (future.isSuccess()) {
                 System.out.println("wechat server start success bind port: " + PORT);
 
-                // 每两秒答应一次当前客户端连接数
+                // 每两秒打印一次当前客户端连接数
                 Executors.newSingleThreadScheduledExecutor()
-                        .scheduleWithFixedDelay(ClientCountUtil::printClientInfo, 2, 2, TimeUnit.SECONDS);
+                        .scheduleWithFixedDelay(ClientCountUtil::printClientInfo, 10, 30, TimeUnit.SECONDS);
             } else {
                 System.out.println("wechat server start failure bind port: " + PORT);
             }

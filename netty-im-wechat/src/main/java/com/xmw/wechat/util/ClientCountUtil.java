@@ -29,6 +29,9 @@ public class ClientCountUtil {
         CLIENT_COUNT.decrementAndGet();
     }
 
+    /**
+     * 打印客户端连接数
+     */
     public static void printClientInfo() {
         System.out.println("当前客户端连接数为: " + CLIENT_COUNT.get() + "个.");
     }
