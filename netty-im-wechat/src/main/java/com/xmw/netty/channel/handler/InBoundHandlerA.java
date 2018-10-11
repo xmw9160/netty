@@ -2,9 +2,6 @@ package com.xmw.netty.channel.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.AttributeKey;
-
-import java.util.Date;
 
 /**
  * InBoundHandlerA
@@ -17,7 +14,7 @@ public class InBoundHandlerA extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println("InBoundHandlerA: " + msg );
+        System.out.println("InBoundHandlerA: " + msg);
         ctx.channel().attr(Constants.TIME).set(System.currentTimeMillis());
         // ctx.fireChannelRead(msg);
         // 调用下一个handler的channelRead方法, 并且会把当前 inBoundHandler 里处理完毕的对象传递到下一个 inBoundHandler

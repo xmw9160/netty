@@ -2,9 +2,6 @@ package com.xmw.netty.channel.handler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-import io.netty.util.AttributeKey;
-
-import java.util.Date;
 
 /**
  * InBoundHandlerB

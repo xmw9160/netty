@@ -1,6 +1,9 @@
 package com.xmw.wechat.server;
 
-import com.xmw.wechat.server.handler.ServerHandler;
+import com.xmw.wechat.codec.PacketDecoder;
+import com.xmw.wechat.codec.PacketEncoder;
+import com.xmw.wechat.server.handler.LoginRequestHandler;
+import com.xmw.wechat.server.handler.MessageRequestHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -30,7 +33,14 @@ public class WechatServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new ServerHandler());
+                        // 请求解码
+                        pipeline.addLast(new PacketDecoder());
+                        // 登录请求处理
+                        pipeline.addLast(new LoginRequestHandler());
+                        // 消息请求处理
+                        pipeline.addLast(new MessageRequestHandler());
+                        // 响应编码
+                        pipeline.addLast(new PacketEncoder());
                     }
                 });
         bootstrap.bind(PORT).addListener(future -> {

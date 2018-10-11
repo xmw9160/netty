@@ -2,9 +2,12 @@ package com.xmw.wechat.client;
 
 import java.util.Scanner;
 
-import com.xmw.wechat.client.handler.ClientHandler;
-import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.client.handler.LoginResponseHandler;
+import com.xmw.wechat.client.handler.MessageResponseHandler;
+import com.xmw.wechat.codec.PacketDecoder;
+import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.protocol.common.PacketCodec;
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.util.LoginUtil;
 
 import io.netty.bootstrap.Bootstrap;
@@ -34,14 +37,17 @@ public class WechatClient {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        pipeline.addLast(new ClientHandler());
+                        pipeline.addLast(new PacketDecoder());
+                        pipeline.addLast(new LoginResponseHandler());
+                        pipeline.addLast(new MessageResponseHandler());
+                        pipeline.addLast(new PacketEncoder());
                     }
                 });
         bootstrap.connect("127.0.0.1", 8888).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("连接服务器成功");
                 // 连接成功之后，启动控制台线程
-                startConsoleThread(((ChannelFuture)future).channel());
+                startConsoleThread(((ChannelFuture) future).channel());
             } else {
                 System.out.println("连接服务器失败");
             }
@@ -59,7 +65,7 @@ public class WechatClient {
 
                     MessageRequestPacket requestPacket = new MessageRequestPacket();
                     requestPacket.setMessage(message);
-                    channel.writeAndFlush(PacketCodec.encode(requestPacket));
+                    channel.writeAndFlush(PacketCodec.encode(requestPacket, channel.alloc().buffer()));
                 }
             }
         }).start();

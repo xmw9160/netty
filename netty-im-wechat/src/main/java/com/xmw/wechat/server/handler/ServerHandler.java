@@ -2,12 +2,12 @@ package com.xmw.wechat.server.handler;
 
 import java.util.Date;
 
-import com.xmw.wechat.protocol.request.LoginRequestPacket;
-import com.xmw.wechat.protocol.response.LoginResponsePacket;
-import com.xmw.wechat.protocol.request.MessageRequestPacket;
-import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.protocol.common.Packet;
 import com.xmw.wechat.protocol.common.PacketCodec;
+import com.xmw.wechat.protocol.request.LoginRequestPacket;
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.protocol.response.MessageResponsePacket;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -20,6 +20,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @date 2018/10/10 10:41
  * @since V1.0
  */
+@Deprecated
 public class ServerHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -45,14 +46,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
                 responsePacket.setIsSuccess(false);
                 responsePacket.setReason("登录失败!!");
             }
-            ctx.channel().writeAndFlush(PacketCodec.encode(responsePacket));
+            ctx.channel().writeAndFlush(PacketCodec.encode(responsePacket, ctx.alloc().buffer()));
         } else if (packet instanceof MessageRequestPacket) {
             MessageRequestPacket requestPacket = (MessageRequestPacket) packet;
             System.out.println(new Date() + " : 收到客户端信息: " + requestPacket.getMessage());
 
             MessageResponsePacket responsePacket = new MessageResponsePacket();
             responsePacket.setMessage("服务端回复【" + requestPacket.getMessage() + "】");
-            ctx.channel().writeAndFlush(PacketCodec.encode(responsePacket));
+            ctx.channel().writeAndFlush(PacketCodec.encode(responsePacket, ctx.alloc().buffer()));
         }
     }
 

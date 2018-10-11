@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
-import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.serialize.Serializer;
 import com.xmw.wechat.serialize.impl.JsonSerializer;
@@ -29,8 +29,6 @@ public class PacketCodec {
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private static final Map<Byte, Serializer> serializerMap;
 
-    private PacketCodec(){}
-
     static {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(LOGIN_REQUEST, LoginRequestPacket.class);
@@ -43,16 +41,22 @@ public class PacketCodec {
         serializerMap.put(serializer.getSerializerAlgorithm(), serializer);
     }
 
+    private PacketCodec() {
+    }
+
     /**
      * 编码数据包对象
      *
-     * @param packet 数据包对象
+     * @param packet  数据包对象
+     * @param byteBuf 返回数据
      * @return 封装好的数据包
      * @author mingwei.xia
      * @date 2018/10/9 17:01
      */
-    public static ByteBuf encode(Packet packet) {
-        ByteBuf byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+    public static ByteBuf encode(Packet packet, ByteBuf byteBuf) {
+        if (byteBuf == null) {
+            byteBuf = ByteBufAllocator.DEFAULT.ioBuffer();
+        }
         //1. 魔数(4byte)
         byteBuf.writeInt(MAGIC_NUMBER);
         //2. 版本号(1byte)

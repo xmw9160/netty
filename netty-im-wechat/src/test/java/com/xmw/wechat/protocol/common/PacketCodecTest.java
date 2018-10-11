@@ -28,7 +28,7 @@ public class PacketCodecTest {
         loginRequestPacket.setUsername("username");
         loginRequestPacket.setPassword("password");
 
-        ByteBuf byteBuf = PacketCodec.encode(loginRequestPacket);
+        ByteBuf byteBuf = PacketCodec.encode(loginRequestPacket, null);
         Packet decodedPacket = PacketCodec.decode(byteBuf);
         Assert.assertArrayEquals(serializer.serialize(loginRequestPacket), serializer.serialize(decodedPacket));
     }

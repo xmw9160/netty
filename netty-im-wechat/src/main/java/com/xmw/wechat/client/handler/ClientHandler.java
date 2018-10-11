@@ -2,11 +2,11 @@ package com.xmw.wechat.client.handler;
 
 import java.util.Date;
 
+import com.xmw.wechat.protocol.common.Packet;
+import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
-import com.xmw.wechat.protocol.common.Packet;
-import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.util.LoginUtil;
 
 import io.netty.buffer.ByteBuf;
@@ -20,6 +20,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  * @date 2018/10/10 10:40
  * @since V1.0
  */
+@Deprecated
 public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
@@ -36,7 +37,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         packet.setUserId(1);
         packet.setUsername("青禾");
         packet.setPassword("8888");
-        ByteBuf byteBuf = PacketCodec.encode(packet);
+        ByteBuf byteBuf = PacketCodec.encode(packet, ctx.alloc().buffer());
         ctx.channel().writeAndFlush(byteBuf);
     }
 
@@ -54,7 +55,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
             }
         } else if (packet instanceof MessageResponsePacket) {
             MessageResponsePacket responsePacket = (MessageResponsePacket) packet;
-            System.out.println(new Date() +" : 收到服务端消息: " + responsePacket.getMessage());
+            System.out.println(new Date() + " : 收到服务端消息: " + responsePacket.getMessage());
         }
     }
 }
