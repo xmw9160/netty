@@ -1,10 +1,15 @@
 package com.xmw.wechat.server;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
+import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.LoginRequestHandler;
 import com.xmw.wechat.server.handler.MessageRequestHandler;
+import com.xmw.wechat.util.ClientCountUtil;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
@@ -34,6 +39,8 @@ public class WechatServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        // 测试handler生命周期
+                        pipeline.addLast(new LifeCyCleTestHandler());
                         // 长度域拆包器-过滤自定义协议请求
                         //pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                         pipeline.addLast(new Spliter());
@@ -50,6 +57,10 @@ public class WechatServer {
         bootstrap.bind(PORT).addListener(future -> {
             if (future.isSuccess()) {
                 System.out.println("wechat server start success bind port: " + PORT);
+
+                // 每两秒答应一次当前客户端连接数
+                Executors.newSingleThreadScheduledExecutor()
+                        .scheduleWithFixedDelay(ClientCountUtil::printClientInfo, 2, 2, TimeUnit.SECONDS);
             } else {
                 System.out.println("wechat server start failure bind port: " + PORT);
             }
