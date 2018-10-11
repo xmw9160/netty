@@ -23,10 +23,12 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
     // 在客户端连接成功之后会回调到逻辑处理器的 channelActive() 方法
     public void channelActive(ChannelHandlerContext ctx) {
         // 1. 获取数据
+        for (int i = 0; i < 1000; i++) {
         ByteBuf buffer = getByteBuf(ctx);
         System.out.println(new Date() + ": 客户端写出数据: " + buffer.toString(charset));
         // 2. 写数据
-        ctx.channel().writeAndFlush(buffer);
+            ctx.channel().writeAndFlush(buffer);
+        }
     }
 
     @Override

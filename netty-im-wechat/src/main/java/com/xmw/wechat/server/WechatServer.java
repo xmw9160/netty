@@ -2,6 +2,7 @@ package com.xmw.wechat.server;
 
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
+import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.server.handler.LoginRequestHandler;
 import com.xmw.wechat.server.handler.MessageRequestHandler;
 
@@ -33,6 +34,9 @@ public class WechatServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        // 长度域拆包器-过滤自定义协议请求
+                        //pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                        pipeline.addLast(new Spliter());
                         // 请求解码
                         pipeline.addLast(new PacketDecoder());
                         // 登录请求处理

@@ -6,6 +6,7 @@ import com.xmw.wechat.client.handler.LoginResponseHandler;
 import com.xmw.wechat.client.handler.MessageResponseHandler;
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
+import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.util.LoginUtil;
@@ -18,6 +19,7 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 /**
  * WechatClient
@@ -37,6 +39,9 @@ public class WechatClient {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        // 长度域拆包器
+                        //pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                        pipeline.addLast(new Spliter());
                         pipeline.addLast(new PacketDecoder());
                         pipeline.addLast(new LoginResponseHandler());
                         pipeline.addLast(new MessageResponseHandler());

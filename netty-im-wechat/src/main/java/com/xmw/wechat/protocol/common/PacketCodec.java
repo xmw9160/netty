@@ -25,7 +25,7 @@ import io.netty.buffer.ByteBufAllocator;
  * @since V1.0
  */
 public class PacketCodec {
-    private static final int MAGIC_NUMBER = 0x9160;
+    public static final int MAGIC_NUMBER = 0x9160;
     private static final Map<Byte, Class<? extends Packet>> packetTypeMap;
     private static final Map<Byte, Serializer> serializerMap;
 
