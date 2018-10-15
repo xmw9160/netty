@@ -9,7 +9,7 @@ import java.nio.channels.FileChannel;
  * @date 2018/6/10 14:02.
  */
 public class FileInputProgram {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         FileInputStream fin = new FileInputStream("d://info.txt");
 
         // 获取通道

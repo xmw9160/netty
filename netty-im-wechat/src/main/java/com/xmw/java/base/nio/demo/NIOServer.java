@@ -41,6 +41,10 @@ public class NIOServer {
         System.out.println("服务器准备就绪, 监听的端口是: " + this.port);
     }
 
+    public static void main(String[] args) throws IOException {
+        new NIOServer(8080).listener();
+    }
+
     private void listener() throws IOException {
         while (true) {
             // 获取待处理的事件
@@ -94,9 +98,5 @@ public class NIOServer {
             client.write(ByteBuffer.wrap("server to client : hello world".getBytes()));
             client.close();
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        new NIOServer(8080).listener();
     }
 }

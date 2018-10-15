@@ -9,9 +9,10 @@ import java.nio.channels.FileChannel;
  * @date 2018/6/10 14:11.
  */
 public class FileOutputProgram {
-     private static final byte message[] = { 83, 111, 109, 101, 32,
-            98, 121, 116, 101, 115, 46 };
-    public static void main(String[] args) throws Exception{
+    private static final byte message[] = {83, 111, 109, 101, 32,
+            98, 121, 116, 101, 115, 46};
+
+    public static void main(String[] args) throws Exception {
 
         FileOutputStream fout = new FileOutputStream("d://info.txt");
 

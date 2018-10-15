@@ -16,13 +16,32 @@ import java.util.concurrent.TimeUnit;
 public class AIOClient {
     private final AsynchronousSocketChannel client;
 
-    public AIOClient() throws Exception{
+    public AIOClient() throws Exception {
         //Asynchronous
         //BIO   Socket
         //NIO   SocketChannel
         //AIO   AsynchronousSocketChannel
         //先把高速公路修起来
         client = AsynchronousSocketChannel.open();
+    }
+
+    public static void main(String[] args) throws Exception {
+//        new AIOClient().connect("localhost", 8000);
+
+        CountDownLatch latch = new CountDownLatch(10);
+
+        for (int i = 0; i < 10; i++) {
+            new Thread(() -> {
+                latch.countDown();
+                try {
+                    new AIOClient().connect("localhost", 8000);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
+        latch.await();
+        TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
     }
 
     public void connect(String host, int port) throws Exception {
@@ -65,25 +84,6 @@ public class AIOClient {
             }
         });
 
-        TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
-    }
-
-    public static void main(String[] args) throws Exception{
-//        new AIOClient().connect("localhost", 8000);
-
-        CountDownLatch latch = new CountDownLatch(10);
-
-        for (int i = 0; i < 10; i++) {
-            new Thread(() -> {
-                latch.countDown();
-                try {
-                    new AIOClient().connect("localhost", 8000);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }).start();
-        }
-        latch.await();
         TimeUnit.SECONDS.sleep(Integer.MAX_VALUE);
     }
 }

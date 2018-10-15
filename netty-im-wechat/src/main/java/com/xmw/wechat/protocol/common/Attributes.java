@@ -1,5 +1,7 @@
 package com.xmw.wechat.protocol.common;
 
+import com.xmw.wechat.session.Session;
+
 import io.netty.util.AttributeKey;
 
 /**
@@ -15,4 +17,9 @@ public interface Attributes {
      * 登录标识
      */
     AttributeKey<Boolean> LOGIN = AttributeKey.newInstance("login");
+
+    /**
+     * session
+     */
+    AttributeKey<Session> SESSION = AttributeKey.newInstance("session");
 }

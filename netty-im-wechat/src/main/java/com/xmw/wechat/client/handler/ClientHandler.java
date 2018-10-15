@@ -7,7 +7,7 @@ import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
-import com.xmw.wechat.util.LoginUtil;
+import com.xmw.wechat.util.SessionUtil;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -48,7 +48,7 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
         if (packet instanceof LoginResponsePacket) {
             LoginResponsePacket responsePacket = (LoginResponsePacket) packet;
             if (responsePacket.getIsSuccess()) {
-                LoginUtil.markAsLogin(ctx.channel());
+                SessionUtil.markAsLogin(ctx.channel());
                 System.out.println(new Date() + ": 客户端登录成功");
             } else {
                 System.out.println(new Date() + ": 客户端登录失败，原因：" + responsePacket.getReason());

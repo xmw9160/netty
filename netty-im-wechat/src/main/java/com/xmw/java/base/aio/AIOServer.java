@@ -27,6 +27,10 @@ public class AIOServer {
         listen();
     }
 
+    public static void main(String[] args) {
+        new AIOServer(8000);
+    }
+
     private void listen() {
         try {
             // 线程缓冲池，为了体现异步
@@ -45,12 +49,13 @@ public class AIOServer {
             channel.bind(socketAddress);
             System.out.println("服务已启动, 监听端口: " + port);
 
-            final Map<String,Integer> count = new ConcurrentHashMap<>();
+            final Map<String, Integer> count = new ConcurrentHashMap<>();
             count.put("count", 0);
             //开始等待客户端连接
             //实现一个CompletionHandler 的接口，匿名的实现类
             channel.accept(null, new CompletionHandler<AsynchronousSocketChannel, Object>() {
                 final ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
+
                 //实现IO操作完成的方法
                 @Override
                 public void completed(AsynchronousSocketChannel result, Object attachment) {
@@ -87,9 +92,5 @@ public class AIOServer {
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        new AIOServer(8000);
     }
 }

@@ -24,9 +24,9 @@ public class FirstClientHandler extends ChannelInboundHandlerAdapter {
     public void channelActive(ChannelHandlerContext ctx) {
         // 1. 获取数据
         for (int i = 0; i < 1000; i++) {
-        ByteBuf buffer = getByteBuf(ctx);
-        System.out.println(new Date() + ": 客户端写出数据: " + buffer.toString(charset));
-        // 2. 写数据
+            ByteBuf buffer = getByteBuf(ctx);
+            System.out.println(new Date() + ": 客户端写出数据: " + buffer.toString(charset));
+            // 2. 写数据
             ctx.channel().writeAndFlush(buffer);
         }
     }

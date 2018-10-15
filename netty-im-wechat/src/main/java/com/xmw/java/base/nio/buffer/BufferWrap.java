@@ -12,6 +12,6 @@ public class BufferWrap {
         ByteBuffer buffer1 = ByteBuffer.allocate(10);
         // 包装一个现有的数组
         byte array[] = new byte[10];
-        ByteBuffer buffer2 = ByteBuffer.wrap( array );
+        ByteBuffer buffer2 = ByteBuffer.wrap(array);
     }
 }

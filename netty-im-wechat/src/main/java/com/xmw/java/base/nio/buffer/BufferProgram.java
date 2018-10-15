@@ -10,7 +10,7 @@ import java.nio.channels.FileChannel;
  * @date 2018/6/10 12:44.
  */
 public class BufferProgram {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         FileInputStream fin = new FileInputStream("d://info.txt");
         FileChannel fc = fin.getChannel();
 
@@ -38,8 +38,8 @@ public class BufferProgram {
 
     public static void output(String step, Buffer buffer) {
         System.out.println(step + " : ");
-        System.out.print("capacity: " + buffer.capacity()+ ", ");
-        System.out.print("position: " + buffer.position()+ ", ");
+        System.out.print("capacity: " + buffer.capacity() + ", ");
+        System.out.print("position: " + buffer.position() + ", ");
         System.out.print("limit: " + buffer.limit());
         System.out.println();
     }

@@ -24,6 +24,10 @@ public class BIOServer {
         }
     }
 
+    public static void main(String[] args) throws Exception {
+        new BIOServer(8080).listener();
+    }
+
     // 开始监听端口, 并处理逻辑
     private void listener() throws Exception {
         // 死循环监听
@@ -50,9 +54,5 @@ public class BIOServer {
 //            os.close();
 //            is.close();
         }
-    }
-
-    public static void main(String[] args) throws Exception {
-        new BIOServer(8080).listener();
     }
 }

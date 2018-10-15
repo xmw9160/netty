@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
  * @date 2018/6/10 11:33.
  */
 public class ReadFile {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         FileInputStream input = new FileInputStream("d://info.txt");
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         String nameLine = reader.readLine();

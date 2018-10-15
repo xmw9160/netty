@@ -20,6 +20,16 @@ public class LoginResponsePacket extends Packet {
     private Boolean isSuccess;
 
     /**
+     * 登录用户id
+     */
+    private String userId;
+
+    /**
+     * 用户名称
+     */
+    private String userName;
+
+    /**
      * 理由
      */
     private String reason;

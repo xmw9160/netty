@@ -12,7 +12,8 @@ public class MappedBuffer {
 
     private static final int start = 0;
     private static final int size = 1024;
-    public static void main(String[] args) throws Exception{
+
+    public static void main(String[] args) throws Exception {
         RandomAccessFile raf = new RandomAccessFile("d://info.txt", "rw");
         FileChannel fc = raf.getChannel();
 

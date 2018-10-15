@@ -17,7 +17,7 @@ public class BIOClient2 {
     public static void main(String[] args) throws InterruptedException {
         CountDownLatch latch = new CountDownLatch(10);
         for (int i = 0; i < 10; i++) {
-            new Thread(()->{
+            new Thread(() -> {
                 try {
                     latch.countDown();
                     Socket socket = new Socket("127.0.0.1", 8080);
@@ -31,7 +31,7 @@ public class BIOClient2 {
 
                     byte[] buffer = new byte[1024];
                     int len = is.read(buffer);
-                    System.out.println("form server " + new String(buffer, 0 , len));
+                    System.out.println("form server " + new String(buffer, 0, len));
 
 //                    os.close();
 //                    is.close();
