@@ -1,18 +1,17 @@
 package com.xmw.wechat.server.handler;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
 import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
 import com.xmw.wechat.util.IDUtil;
 import com.xmw.wechat.util.SessionUtil;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 创建群聊处理

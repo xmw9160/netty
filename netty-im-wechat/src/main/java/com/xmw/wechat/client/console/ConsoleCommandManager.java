@@ -1,10 +1,10 @@
 package com.xmw.wechat.client.console;
 
+import io.netty.channel.Channel;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import io.netty.channel.Channel;
 
 /**
  * 命令控制管理
@@ -19,6 +19,8 @@ public class ConsoleCommandManager implements ConsoleCommand {
     public ConsoleCommandManager() {
         this.consoleCommandMap = new HashMap<>();
         this.consoleCommandMap.put("createGroup", new CreateGroupConsoleCommand());
+        this.consoleCommandMap.put("sendToUser", new SendToUserConsoleCommand());
+        this.consoleCommandMap.put("logout", new LogoutConsoleCommand());
     }
 
     @Override

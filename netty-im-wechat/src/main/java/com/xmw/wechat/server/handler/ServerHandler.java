@@ -1,17 +1,16 @@
 package com.xmw.wechat.server.handler;
 
-import java.util.Date;
-
 import com.xmw.wechat.protocol.common.Packet;
 import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
+
+import java.util.Date;
 
 /**
  * ServerHandler
@@ -58,6 +57,6 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
     }
 
     private boolean validate(LoginRequestPacket packet) {
-        return "青禾".equals(packet.getUsername()) && "8888".equals(packet.getPassword());
+        return "青禾".equals(packet.getUserName()) && "8888".equals(packet.getPassword());
     }
 }

@@ -1,12 +1,11 @@
 package com.xmw.wechat.util;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import com.xmw.wechat.protocol.common.Attributes;
 import com.xmw.wechat.session.Session;
-
 import io.netty.channel.Channel;
+
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 登录工具类
@@ -33,7 +32,8 @@ public class SessionUtil {
     }
 
     public static boolean hasLogin(Channel channel) {
-        return channel.hasAttr(Attributes.SESSION);
+//        return channel.hasAttr(Attributes.SESSION);
+        return channel.attr(Attributes.SESSION) != null && channel.attr(Attributes.SESSION).get() != null;
     }
 
     public static Session getSession(Channel channel) {

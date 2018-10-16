@@ -1,21 +1,29 @@
 package com.xmw.wechat.protocol.common;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
+import com.xmw.wechat.protocol.request.LogoutRequestPacket;
 import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.protocol.response.LogoutResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.serialize.Serializer;
 import com.xmw.wechat.serialize.impl.JsonSerializer;
-
-import static com.xmw.wechat.protocol.common.Command.LOGIN_REQUEST;
-import static com.xmw.wechat.protocol.common.Command.LOGIN_RESPONSE;
-import static com.xmw.wechat.protocol.common.Command.MESSAGE_REQUEST;
-import static com.xmw.wechat.protocol.common.Command.MESSAGE_RESPONSE;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.LOGIN_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.LOGIN_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.LOGOUT_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.LOGOUT_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.MESSAGE_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.MESSAGE_RESPONSE;
 
 /**
  * 编解码工具类
@@ -35,6 +43,11 @@ public class PacketCodec {
         packetTypeMap.put(LOGIN_RESPONSE, LoginResponsePacket.class);
         packetTypeMap.put(MESSAGE_REQUEST, MessageRequestPacket.class);
         packetTypeMap.put(MESSAGE_RESPONSE, MessageResponsePacket.class);
+        packetTypeMap.put(CREATE_GROUP_REQUEST, CreateGroupRequestPacket.class);
+        packetTypeMap.put(CREATE_GROUP_RESPONSE, CreategroupResponsePacket.class);
+        packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
+        packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
+
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JsonSerializer();

@@ -1,14 +1,13 @@
 package com.xmw.wechat.server.handler;
 
-import java.util.UUID;
-
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.session.Session;
 import com.xmw.wechat.util.SessionUtil;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
+
+import java.util.UUID;
 
 /**
  * LoginRequestHandler
@@ -23,14 +22,14 @@ public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginReques
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) {
         LoginResponsePacket responsePacket = new LoginResponsePacket();
         responsePacket.setVersion(msg.getVersion());
-        responsePacket.setUserName(msg.getUsername());
+        responsePacket.setUserName(msg.getUserName());
         System.out.println("用户" + msg.getUserId() + ": 请求登录....");
         if (validate(msg)) {
             String userId = randomUserId();
             responsePacket.setUserId(userId);
             // SessionUtil.markAsLogin(ctx.channel());
             // 服务端绑定用户session和channel的关系
-            SessionUtil.bindSession(new Session(userId, msg.getUsername()), ctx.channel());
+            SessionUtil.bindSession(new Session(userId, msg.getUserName()), ctx.channel());
 
             responsePacket.setIsSuccess(true);
             responsePacket.setReason("登录成功!!");

@@ -1,11 +1,11 @@
 package com.xmw.wechat.client.console;
 
+import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
+import com.xmw.wechat.util.SessionUtil;
+import io.netty.channel.Channel;
+
 import java.util.Arrays;
 import java.util.Scanner;
-
-import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
-
-import io.netty.channel.Channel;
 
 /**
  * 创建群聊指令处理
@@ -23,6 +23,8 @@ public class CreateGroupConsoleCommand implements ConsoleCommand {
 
         System.out.println("【拉人群聊】输入 userId 列表，userId 之间英文逗号隔开：");
         String userIds = scanner.next();
+        // 拼接自己的userId
+        userIds = userIds + USER_ID_SPLITTER + SessionUtil.getSession(channel).getUserId();
         createGroupRequestPacket.setUserIdList(Arrays.asList(userIds.split(USER_ID_SPLITTER)));
         channel.writeAndFlush(createGroupRequestPacket);
     }

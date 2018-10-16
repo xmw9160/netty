@@ -4,7 +4,6 @@ import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.session.Session;
 import com.xmw.wechat.util.SessionUtil;
-
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;

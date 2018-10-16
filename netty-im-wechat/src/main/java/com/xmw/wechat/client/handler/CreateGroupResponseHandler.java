@@ -1,7 +1,6 @@
 package com.xmw.wechat.client.handler;
 
 import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
-
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 

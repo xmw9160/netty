@@ -1,7 +1,6 @@
 package com.xmw.wechat.protocol.common;
 
 import com.alibaba.fastjson.annotation.JSONField;
-
 import lombok.Data;
 
 /**

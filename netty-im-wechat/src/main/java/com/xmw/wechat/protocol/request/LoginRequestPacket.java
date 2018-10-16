@@ -2,7 +2,6 @@ package com.xmw.wechat.protocol.request;
 
 import com.xmw.wechat.protocol.common.Command;
 import com.xmw.wechat.protocol.common.Packet;
-
 import lombok.Data;
 
 /**
@@ -17,7 +16,7 @@ public class LoginRequestPacket extends Packet {
 
     private Integer userId;
 
-    private String username;
+    private String userName;
 
     private String password;
 

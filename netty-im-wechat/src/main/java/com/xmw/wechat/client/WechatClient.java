@@ -1,18 +1,14 @@
 package com.xmw.wechat.client;
 
-import java.util.Scanner;
-
 import com.xmw.wechat.client.console.ConsoleCommandManager;
 import com.xmw.wechat.client.handler.CreateGroupResponseHandler;
 import com.xmw.wechat.client.handler.LoginResponseHandler;
+import com.xmw.wechat.client.handler.LogoutResponseHandler;
 import com.xmw.wechat.client.handler.MessageResponseHandler;
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
-import com.xmw.wechat.protocol.request.LoginRequestPacket;
-import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.util.SessionUtil;
-
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -21,6 +17,8 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+
+import java.util.Scanner;
 
 /**
  * WechatClient
@@ -47,6 +45,7 @@ public class WechatClient {
                         pipeline.addLast(new LoginResponseHandler());
                         pipeline.addLast(new MessageResponseHandler());
                         pipeline.addLast(new CreateGroupResponseHandler());
+                        pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new PacketEncoder());
                     }
                 });
@@ -65,7 +64,7 @@ public class WechatClient {
         Scanner sc = new Scanner(System.in);
         ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
         // LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
-        LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
+        // LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         new Thread(() -> {
             while (!Thread.interrupted()) {
                 // 请求登录
@@ -77,7 +76,8 @@ public class WechatClient {
 //                    loginRequestPacket.setPassword("8888");
 //                    channel.writeAndFlush(loginRequestPacket);
 //                    waitForLoginResponse();
-                    //TODO 登录逻辑
+                    // 登录操作
+                    //loginConsoleCommand.exec(sc, channel);
                 } else {
                     // 登录成功, 发送消息
 //                    String toUserId = sc.next();
