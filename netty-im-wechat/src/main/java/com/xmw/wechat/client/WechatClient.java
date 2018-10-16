@@ -2,6 +2,8 @@ package com.xmw.wechat.client;
 
 import java.util.Scanner;
 
+import com.xmw.wechat.client.console.ConsoleCommandManager;
+import com.xmw.wechat.client.handler.CreateGroupResponseHandler;
 import com.xmw.wechat.client.handler.LoginResponseHandler;
 import com.xmw.wechat.client.handler.MessageResponseHandler;
 import com.xmw.wechat.codec.PacketDecoder;
@@ -44,6 +46,7 @@ public class WechatClient {
                         pipeline.addLast(new PacketDecoder());
                         pipeline.addLast(new LoginResponseHandler());
                         pipeline.addLast(new MessageResponseHandler());
+                        pipeline.addLast(new CreateGroupResponseHandler());
                         pipeline.addLast(new PacketEncoder());
                     }
                 });
@@ -60,6 +63,8 @@ public class WechatClient {
 
     private static void startConsoleThread(Channel channel) {
         Scanner sc = new Scanner(System.in);
+        ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
+        // LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
         LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         new Thread(() -> {
             while (!Thread.interrupted()) {
@@ -72,11 +77,13 @@ public class WechatClient {
 //                    loginRequestPacket.setPassword("8888");
 //                    channel.writeAndFlush(loginRequestPacket);
 //                    waitForLoginResponse();
+                    //TODO 登录逻辑
                 } else {
                     // 登录成功, 发送消息
-                    String toUserId = sc.next();
-                    String message = sc.next();
-                    channel.writeAndFlush(new MessageRequestPacket(toUserId, message));
+//                    String toUserId = sc.next();
+//                    String message = sc.next();
+//                    channel.writeAndFlush(new MessageRequestPacket(toUserId, message));
+                    consoleCommandManager.exec(sc, channel);
                 }
             }
         }).start();

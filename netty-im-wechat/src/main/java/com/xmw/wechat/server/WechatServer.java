@@ -7,6 +7,7 @@ import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.server.handler.AuthHandler;
+import com.xmw.wechat.server.handler.CreateGroupRequestHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.LoginRequestHandler;
 import com.xmw.wechat.server.handler.MessageRequestHandler;
@@ -53,6 +54,8 @@ public class WechatServer {
                         pipeline.addLast(new AuthHandler());
                         // 消息请求处理
                         pipeline.addLast(new MessageRequestHandler());
+                        // 创建群聊
+                        pipeline.addLast(new CreateGroupRequestHandler());
                         // 响应编码
                         pipeline.addLast(new PacketEncoder());
                     }
