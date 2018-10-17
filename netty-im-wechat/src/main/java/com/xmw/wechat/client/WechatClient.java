@@ -3,8 +3,10 @@ package com.xmw.wechat.client;
 import java.util.Scanner;
 
 import com.xmw.wechat.client.console.ConsoleCommandManager;
+import com.xmw.wechat.client.console.LoginConsoleCommand;
 import com.xmw.wechat.client.handler.CreateGroupResponseHandler;
 import com.xmw.wechat.client.handler.GroupMessageResponseHandler;
+import com.xmw.wechat.client.handler.HeartBeatTimerHandler;
 import com.xmw.wechat.client.handler.JoinGroupResponseHandler;
 import com.xmw.wechat.client.handler.ListGroupMembersResponseHandler;
 import com.xmw.wechat.client.handler.LoginResponseHandler;
@@ -59,6 +61,8 @@ public class WechatClient {
                         pipeline.addLast(new GroupMessageResponseHandler());
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new PacketEncoder());
+                        // 心跳检测
+                        pipeline.addLast(new HeartBeatTimerHandler());
                     }
                 });
         bootstrap.connect("127.0.0.1", 8888).addListener(future -> {
@@ -75,7 +79,7 @@ public class WechatClient {
     private static void startConsoleThread(Channel channel) {
         Scanner sc = new Scanner(System.in);
         ConsoleCommandManager consoleCommandManager = new ConsoleCommandManager();
-        // LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
+         //LoginConsoleCommand loginConsoleCommand = new LoginConsoleCommand();
         // LoginRequestPacket loginRequestPacket = new LoginRequestPacket();
         new Thread(() -> {
             while (!Thread.interrupted()) {

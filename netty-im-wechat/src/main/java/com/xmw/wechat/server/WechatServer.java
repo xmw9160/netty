@@ -9,6 +9,7 @@ import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.server.handler.AuthHandler;
 import com.xmw.wechat.server.handler.CreateGroupRequestHandler;
 import com.xmw.wechat.server.handler.GroupMessageRequestHandler;
+import com.xmw.wechat.server.handler.HeartBeatRequestHandler;
 import com.xmw.wechat.server.handler.IMIdleStateHandler;
 import com.xmw.wechat.server.handler.JoinGroupRequestHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
@@ -65,6 +66,8 @@ public class WechatServer {
                         pipeline.addLast(new PacketDecoder());
                         // 登录请求处理
                         pipeline.addLast(new LoginRequestHandler());
+                        // 心跳处理
+                        pipeline.addLast(HeartBeatRequestHandler.INSTANCE);
                         // 认证处理
                         pipeline.addLast(new AuthHandler());
                         // 消息请求处理

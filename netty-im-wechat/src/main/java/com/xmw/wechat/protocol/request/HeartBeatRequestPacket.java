@@ -1,5 +1,6 @@
 package com.xmw.wechat.protocol.request;
 
+import com.xmw.wechat.protocol.common.Command;
 import com.xmw.wechat.protocol.common.Packet;
 
 /**
@@ -12,6 +13,6 @@ import com.xmw.wechat.protocol.common.Packet;
 public class HeartBeatRequestPacket extends Packet {
     @Override
     public Byte getCommand() {
-        return null;
+        return Command.HEARTBEAT_REQUEST;
     }
 }

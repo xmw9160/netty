@@ -22,8 +22,15 @@ public class HeartBeatTimerHandler extends ChannelInboundHandlerAdapter {
         ctx.executor()  //返回的是当前的 channel 绑定的 NIO 线程
                 // 实现了每隔 5 秒，向服务端发送一个心跳数据包，这个时间段通常要比服务端的空闲检测时间的一半要短一些，
                 // 我们这里直接定义为空闲检测时间的三分之一，主要是为了排除公网偶发的秒级抖动
-                .scheduleAtFixedRate(() -> ctx.channel().writeAndFlush(new HeartBeatRequestPacket()),
-                        HEARTBEAT_INTERVAL, HEARTBEAT_INTERVAL, TimeUnit.SECONDS);
+                .scheduleAtFixedRate(() -> {
+                    ctx.channel().writeAndFlush(new HeartBeatRequestPacket());
+                    System.err.println("客户端发送心跳检测...");
+                    }, HEARTBEAT_INTERVAL, HEARTBEAT_INTERVAL, TimeUnit.SECONDS);
         super.channelActive(ctx);
+    }
+
+    @Override
+    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+        System.err.println("客户端收到心跳检测响应数据...");
     }
 }

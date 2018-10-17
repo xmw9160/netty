@@ -3,6 +3,7 @@ package com.xmw.wechat.server.handler;
 import java.util.concurrent.TimeUnit;
 
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.handler.timeout.IdleStateHandler;
 
 /**
@@ -20,8 +21,8 @@ public class IMIdleStateHandler extends IdleStateHandler {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
-        System.out.println(READER_IDLE_TIME + "秒内未读到数据，关闭连接");
+    protected void channelIdle(ChannelHandlerContext ctx, IdleStateEvent evt) {
+        System.err.println(READER_IDLE_TIME + "秒内未读到数据，关闭连接");
         ctx.channel().close();
     }
 }

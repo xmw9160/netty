@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.xmw.wechat.codec.PacketCodecHandler;
 import com.xmw.wechat.codec.Spliter;
+import com.xmw.wechat.server.handler.HeartBeatRequestHandler;
 import com.xmw.wechat.server.handler.IMIdleStateHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.optimize.AuthHandler;
@@ -57,6 +58,8 @@ public class WechatOptimizeServer {
                         pipeline.addLast(PacketCodecHandler.INSTANCE);
                         // 登录请求处理
                         pipeline.addLast(LoginRequestHandler.INSTANCE);
+                        // 心跳请求处理
+                        pipeline.addLast(HeartBeatRequestHandler.INSTANCE);
                         // 认证处理
                         pipeline.addLast(AuthHandler.INSTANCE);
                         // Handler处理
