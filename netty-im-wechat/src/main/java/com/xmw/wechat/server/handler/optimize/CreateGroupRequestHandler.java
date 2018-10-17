@@ -1,4 +1,4 @@
-package com.xmw.wechat.server.handler;
+package com.xmw.wechat.server.handler.optimize;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +9,7 @@ import com.xmw.wechat.util.IDUtil;
 import com.xmw.wechat.util.SessionUtil;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.group.ChannelGroup;
@@ -21,7 +22,14 @@ import io.netty.channel.group.DefaultChannelGroup;
  * @date 2018/10/16 11:25
  * @since V1.0
  */
+@SuppressWarnings("Duplicates")
+@ChannelHandler.Sharable
 public class CreateGroupRequestHandler extends SimpleChannelInboundHandler<CreateGroupRequestPacket> {
+    public static final CreateGroupRequestHandler INSTANCE = new CreateGroupRequestHandler();
+
+    private CreateGroupRequestHandler() {
+    }
+
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, CreateGroupRequestPacket msg) {
         List<String> userIdList = msg.getUserIdList();

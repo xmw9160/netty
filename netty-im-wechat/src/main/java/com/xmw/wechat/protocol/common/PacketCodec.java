@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
+import com.xmw.wechat.protocol.request.GroupMessageRequestPacket;
 import com.xmw.wechat.protocol.request.JoinGroupRequestPacket;
 import com.xmw.wechat.protocol.request.ListGroupMembersRequestPacket;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
@@ -11,6 +12,7 @@ import com.xmw.wechat.protocol.request.LogoutRequestPacket;
 import com.xmw.wechat.protocol.request.MessageRequestPacket;
 import com.xmw.wechat.protocol.request.QuitGroupRequestPacket;
 import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
+import com.xmw.wechat.protocol.response.GroupMessageResponsePacket;
 import com.xmw.wechat.protocol.response.JoinGroupResponsePacket;
 import com.xmw.wechat.protocol.response.ListGroupMembersResponsePacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
@@ -22,6 +24,8 @@ import com.xmw.wechat.serialize.impl.JsonSerializer;
 
 import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.GROUP_MESSAGE_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.GROUP_MESSAGE_RESPONSE;
 import static com.xmw.wechat.protocol.common.Command.JOIN_GROUP_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.JOIN_GROUP_RESPONSE;
 import static com.xmw.wechat.protocol.common.Command.LIST_GROUP_MEMBER_REQUEST;
@@ -65,6 +69,8 @@ public class PacketCodec {
         packetTypeMap.put(QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
         packetTypeMap.put(LIST_GROUP_MEMBER_REQUEST, ListGroupMembersRequestPacket.class);
         packetTypeMap.put(LIST_GROUP_MEMBER_RESPONSE, ListGroupMembersResponsePacket.class);
+        packetTypeMap.put(GROUP_MESSAGE_REQUEST, GroupMessageRequestPacket.class);
+        packetTypeMap.put(GROUP_MESSAGE_RESPONSE, GroupMessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JsonSerializer();

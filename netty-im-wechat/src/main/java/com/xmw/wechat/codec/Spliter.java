@@ -8,6 +8,7 @@ import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 /**
  * Spliter 自定义协议校验
+ * 每个Spliter需要维持每个channel当前读到的数据，也就是说他是有状态的. 不能进行共享处理.
  *
  * @author mingwei.xia
  * @date 2018/10/11 14:05

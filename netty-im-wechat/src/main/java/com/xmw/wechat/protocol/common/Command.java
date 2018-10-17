@@ -77,4 +77,14 @@ public interface Command {
      * 群聊成员信息查看响应
      */
     Byte LIST_GROUP_MEMBER_RESPONSE = 16;
+
+    /**
+     * 群聊消息请求
+     */
+    Byte GROUP_MESSAGE_REQUEST = 17;
+
+    /**
+     * 群聊消息响应
+     */
+    Byte GROUP_MESSAGE_RESPONSE = 18;
 }

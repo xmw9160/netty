@@ -1,4 +1,4 @@
-package com.xmw.wechat.server.handler;
+package com.xmw.wechat.server.handler.optimize;
 
 import java.util.UUID;
 
@@ -7,6 +7,7 @@ import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.session.Session;
 import com.xmw.wechat.util.SessionUtil;
 
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -18,7 +19,13 @@ import io.netty.channel.SimpleChannelInboundHandler;
  * @since V1.0
  */
 @SuppressWarnings("Duplicates")
+@ChannelHandler.Sharable //加上注解标识，表明该 handler 是可以多个 channel 共享的
 public class LoginRequestHandler extends SimpleChannelInboundHandler<LoginRequestPacket> {
+
+    public static final LoginRequestHandler INSTANCE = new LoginRequestHandler();
+
+    private LoginRequestHandler() {
+    }
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, LoginRequestPacket msg) {

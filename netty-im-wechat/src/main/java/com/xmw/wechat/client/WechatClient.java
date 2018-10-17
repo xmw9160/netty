@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import com.xmw.wechat.client.console.ConsoleCommandManager;
 import com.xmw.wechat.client.handler.CreateGroupResponseHandler;
+import com.xmw.wechat.client.handler.GroupMessageResponseHandler;
 import com.xmw.wechat.client.handler.JoinGroupResponseHandler;
 import com.xmw.wechat.client.handler.ListGroupMembersResponseHandler;
 import com.xmw.wechat.client.handler.LoginResponseHandler;
@@ -52,6 +53,7 @@ public class WechatClient {
                         pipeline.addLast(new JoinGroupResponseHandler());
                         pipeline.addLast(new QuitGroupResponseHandler());
                         pipeline.addLast(new ListGroupMembersResponseHandler());
+                        pipeline.addLast(new GroupMessageResponseHandler());
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new PacketEncoder());
                     }
