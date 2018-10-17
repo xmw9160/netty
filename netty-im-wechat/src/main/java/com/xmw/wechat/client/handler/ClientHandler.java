@@ -1,16 +1,17 @@
 package com.xmw.wechat.client.handler;
 
+import java.util.Date;
+
 import com.xmw.wechat.protocol.common.Packet;
 import com.xmw.wechat.protocol.common.PacketCodec;
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.protocol.response.MessageResponsePacket;
 import com.xmw.wechat.util.SessionUtil;
+
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
-
-import java.util.Date;
 
 /**
  * ClientHandler

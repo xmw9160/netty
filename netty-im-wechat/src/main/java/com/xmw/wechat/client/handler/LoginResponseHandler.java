@@ -1,14 +1,15 @@
 package com.xmw.wechat.client.handler;
 
+import java.util.Date;
+import java.util.Random;
+
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.session.Session;
 import com.xmw.wechat.util.SessionUtil;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.Date;
-import java.util.Random;
 
 /**
  * LoginResponseHandler 登录响应处理

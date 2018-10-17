@@ -6,23 +6,19 @@ import com.xmw.wechat.protocol.common.Packet;
 import lombok.Data;
 
 /**
- * LoginRequestPacket 登录请求数据包
+ * 退出群聊数据包
  *
  * @author mingwei.xia
- * @date 2018/10/9 16:58
+ * @date 2018/10/17 10:12
  * @since V1.0
  */
 @Data
-public class LoginRequestPacket extends Packet {
+public class QuitGroupRequestPacket extends Packet {
 
-    private Integer userId;
-
-    private String userName;
-
-    private String password;
+    private String groupId;
 
     @Override
     public Byte getCommand() {
-        return Command.LOGIN_REQUEST;
+        return Command.QUIT_GROUP_REQUEST;
     }
 }

@@ -1,29 +1,41 @@
 package com.xmw.wechat.protocol.common;
 
-import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
-import com.xmw.wechat.protocol.request.LoginRequestPacket;
-import com.xmw.wechat.protocol.request.LogoutRequestPacket;
-import com.xmw.wechat.protocol.request.MessageRequestPacket;
-import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
-import com.xmw.wechat.protocol.response.LoginResponsePacket;
-import com.xmw.wechat.protocol.response.LogoutResponsePacket;
-import com.xmw.wechat.protocol.response.MessageResponsePacket;
-import com.xmw.wechat.serialize.Serializer;
-import com.xmw.wechat.serialize.impl.JsonSerializer;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.ByteBufAllocator;
-
 import java.util.HashMap;
 import java.util.Map;
 
+import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
+import com.xmw.wechat.protocol.request.JoinGroupRequestPacket;
+import com.xmw.wechat.protocol.request.ListGroupMembersRequestPacket;
+import com.xmw.wechat.protocol.request.LoginRequestPacket;
+import com.xmw.wechat.protocol.request.LogoutRequestPacket;
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
+import com.xmw.wechat.protocol.request.QuitGroupRequestPacket;
+import com.xmw.wechat.protocol.response.CreategroupResponsePacket;
+import com.xmw.wechat.protocol.response.JoinGroupResponsePacket;
+import com.xmw.wechat.protocol.response.ListGroupMembersResponsePacket;
+import com.xmw.wechat.protocol.response.LoginResponsePacket;
+import com.xmw.wechat.protocol.response.LogoutResponsePacket;
+import com.xmw.wechat.protocol.response.MessageResponsePacket;
+import com.xmw.wechat.protocol.response.QuitGroupResponsePacket;
+import com.xmw.wechat.serialize.Serializer;
+import com.xmw.wechat.serialize.impl.JsonSerializer;
+
 import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.CREATE_GROUP_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.JOIN_GROUP_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.JOIN_GROUP_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.LIST_GROUP_MEMBER_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.LIST_GROUP_MEMBER_RESPONSE;
 import static com.xmw.wechat.protocol.common.Command.LOGIN_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.LOGIN_RESPONSE;
 import static com.xmw.wechat.protocol.common.Command.LOGOUT_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.LOGOUT_RESPONSE;
 import static com.xmw.wechat.protocol.common.Command.MESSAGE_REQUEST;
 import static com.xmw.wechat.protocol.common.Command.MESSAGE_RESPONSE;
+import static com.xmw.wechat.protocol.common.Command.QUIT_GROUP_REQUEST;
+import static com.xmw.wechat.protocol.common.Command.QUIT_GROUP_RESPONSE;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.ByteBufAllocator;
 
 /**
  * 编解码工具类
@@ -47,7 +59,12 @@ public class PacketCodec {
         packetTypeMap.put(CREATE_GROUP_RESPONSE, CreategroupResponsePacket.class);
         packetTypeMap.put(LOGOUT_REQUEST, LogoutRequestPacket.class);
         packetTypeMap.put(LOGOUT_RESPONSE, LogoutResponsePacket.class);
-
+        packetTypeMap.put(JOIN_GROUP_REQUEST, JoinGroupRequestPacket.class);
+        packetTypeMap.put(JOIN_GROUP_RESPONSE, JoinGroupResponsePacket.class);
+        packetTypeMap.put(QUIT_GROUP_REQUEST, QuitGroupRequestPacket.class);
+        packetTypeMap.put(QUIT_GROUP_RESPONSE, QuitGroupResponsePacket.class);
+        packetTypeMap.put(LIST_GROUP_MEMBER_REQUEST, ListGroupMembersRequestPacket.class);
+        packetTypeMap.put(LIST_GROUP_MEMBER_RESPONSE, ListGroupMembersResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JsonSerializer();

@@ -1,11 +1,12 @@
 package com.xmw.wechat.client.console;
 
-import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
-import com.xmw.wechat.util.SessionUtil;
-import io.netty.channel.Channel;
-
 import java.util.Arrays;
 import java.util.Scanner;
+
+import com.xmw.wechat.protocol.request.CreateGroupRequestPacket;
+import com.xmw.wechat.util.SessionUtil;
+
+import io.netty.channel.Channel;
 
 /**
  * 创建群聊指令处理

@@ -1,14 +1,20 @@
 package com.xmw.wechat.client;
 
+import java.util.Scanner;
+
 import com.xmw.wechat.client.console.ConsoleCommandManager;
 import com.xmw.wechat.client.handler.CreateGroupResponseHandler;
+import com.xmw.wechat.client.handler.JoinGroupResponseHandler;
+import com.xmw.wechat.client.handler.ListGroupMembersResponseHandler;
 import com.xmw.wechat.client.handler.LoginResponseHandler;
 import com.xmw.wechat.client.handler.LogoutResponseHandler;
 import com.xmw.wechat.client.handler.MessageResponseHandler;
+import com.xmw.wechat.client.handler.QuitGroupResponseHandler;
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.util.SessionUtil;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
@@ -17,8 +23,6 @@ import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.util.Scanner;
 
 /**
  * WechatClient
@@ -45,6 +49,9 @@ public class WechatClient {
                         pipeline.addLast(new LoginResponseHandler());
                         pipeline.addLast(new MessageResponseHandler());
                         pipeline.addLast(new CreateGroupResponseHandler());
+                        pipeline.addLast(new JoinGroupResponseHandler());
+                        pipeline.addLast(new QuitGroupResponseHandler());
+                        pipeline.addLast(new ListGroupMembersResponseHandler());
                         pipeline.addLast(new LogoutResponseHandler());
                         pipeline.addLast(new PacketEncoder());
                     }

@@ -1,10 +1,11 @@
 package com.xmw.wechat.protocol.request;
 
+import java.util.List;
+
 import com.xmw.wechat.protocol.common.Command;
 import com.xmw.wechat.protocol.common.Packet;
-import lombok.Data;
 
-import java.util.List;
+import lombok.Data;
 
 /**
  * 创建群聊数据包

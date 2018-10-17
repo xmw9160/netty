@@ -47,4 +47,34 @@ public interface Command {
      * 创建群聊响应
      */
     Byte CREATE_GROUP_RESPONSE = 8;
+
+    /**
+     * 加入群聊请求
+     */
+    Byte JOIN_GROUP_REQUEST = 11;
+
+    /**
+     * 加入群聊响应
+     */
+    Byte JOIN_GROUP_RESPONSE = 12;
+
+    /**
+     * 退出群聊请求
+     */
+    Byte QUIT_GROUP_REQUEST = 13;
+
+    /**
+     * 退出群聊响应
+     */
+    Byte QUIT_GROUP_RESPONSE = 14;
+
+    /**
+     * 群聊成员信息查看请求
+     */
+    Byte LIST_GROUP_MEMBER_REQUEST = 15;
+
+    /**
+     * 群聊成员信息查看响应
+     */
+    Byte LIST_GROUP_MEMBER_RESPONSE = 16;
 }

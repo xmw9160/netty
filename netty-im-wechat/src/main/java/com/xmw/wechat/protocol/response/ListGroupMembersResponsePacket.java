@@ -4,24 +4,25 @@ import java.util.List;
 
 import com.xmw.wechat.protocol.common.Command;
 import com.xmw.wechat.protocol.common.Packet;
+import com.xmw.wechat.session.Session;
 
 import lombok.Data;
 
 /**
- * 响应创建群聊数据包
+ * 群聊群员信息查看响应
  *
  * @author mingwei.xia
- * @date 2018/10/16 13:52
+ * @date 2018/10/17 10:35
  * @since V1.0
  */
 @Data
-public class CreategroupResponsePacket extends Packet {
-    private Boolean isSuccess;
+public class ListGroupMembersResponsePacket extends Packet {
     private String groupId;
-    private List<String> userNameList;
+    private List<Session> sessionList;
+    private String message;
 
     @Override
     public Byte getCommand() {
-        return Command.CREATE_GROUP_RESPONSE;
+        return Command.LIST_GROUP_MEMBER_RESPONSE;
     }
 }

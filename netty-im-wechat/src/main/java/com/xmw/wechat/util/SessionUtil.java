@@ -1,11 +1,13 @@
 package com.xmw.wechat.util;
 
-import com.xmw.wechat.protocol.common.Attributes;
-import com.xmw.wechat.session.Session;
-import io.netty.channel.Channel;
-
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+
+import com.xmw.wechat.protocol.common.Attributes;
+import com.xmw.wechat.session.Session;
+
+import io.netty.channel.Channel;
+import io.netty.channel.group.ChannelGroup;
 
 /**
  * 登录工具类
@@ -18,6 +20,8 @@ public class SessionUtil {
 
     // userId -> channel 的映射
     private static final Map<String, Channel> userIdChannelMap = new ConcurrentHashMap<>();
+    // groupId -> channelGroup
+    private static final Map<String, ChannelGroup> channelGroupMap = new ConcurrentHashMap<>();
 
     public static void bindSession(Session session, Channel channel) {
         userIdChannelMap.put(session.getUserId(), channel);
@@ -43,6 +47,21 @@ public class SessionUtil {
     public static Channel getChannel(String userId) {
         return userIdChannelMap.get(userId);
     }
+
+    public static void addChannelGroup(String groupId, ChannelGroup channels) {
+        channelGroupMap.put(groupId, channels);
+    }
+
+    public static void removeChannelGroup(String groupId) {
+        if (channelGroupMap.get(groupId) != null) {
+            channelGroupMap.remove(groupId);
+        }
+    }
+
+    public static ChannelGroup getChannelGroup(String groupId) {
+        return channelGroupMap.get(groupId);
+    }
+
 
     /**
      * 标记客户端已登录

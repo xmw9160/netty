@@ -1,9 +1,9 @@
 package com.xmw.wechat.protocol.response;
 
 import com.xmw.wechat.protocol.common.Packet;
-import lombok.Data;
 
 import static com.xmw.wechat.protocol.common.Command.LOGOUT_RESPONSE;
+import lombok.Data;
 
 @Data
 public class LogoutResponsePacket extends Packet {

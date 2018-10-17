@@ -1,6 +1,7 @@
 package com.xmw.wechat.protocol.common;
 
 import com.xmw.wechat.session.Session;
+
 import io.netty.util.AttributeKey;
 
 /**

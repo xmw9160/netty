@@ -1,13 +1,14 @@
 package com.xmw.wechat.server.handler;
 
+import java.util.UUID;
+
 import com.xmw.wechat.protocol.request.LoginRequestPacket;
 import com.xmw.wechat.protocol.response.LoginResponsePacket;
 import com.xmw.wechat.session.Session;
 import com.xmw.wechat.util.SessionUtil;
+
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-
-import java.util.UUID;
 
 /**
  * LoginRequestHandler

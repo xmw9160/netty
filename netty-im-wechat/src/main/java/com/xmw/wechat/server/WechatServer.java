@@ -1,24 +1,28 @@
 package com.xmw.wechat.server;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
+
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.server.handler.AuthHandler;
 import com.xmw.wechat.server.handler.CreateGroupRequestHandler;
+import com.xmw.wechat.server.handler.JoinGroupRequestHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
+import com.xmw.wechat.server.handler.ListGroupMembersRequestHandler;
 import com.xmw.wechat.server.handler.LoginRequestHandler;
 import com.xmw.wechat.server.handler.LogoutRequestHandler;
 import com.xmw.wechat.server.handler.MessageRequestHandler;
+import com.xmw.wechat.server.handler.QuitGroupRequestHandler;
 import com.xmw.wechat.util.ClientCountUtil;
+
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 /**
  * WechatServer
@@ -56,6 +60,12 @@ public class WechatServer {
                         pipeline.addLast(new MessageRequestHandler());
                         // 创建群聊
                         pipeline.addLast(new CreateGroupRequestHandler());
+                        // 进入群聊
+                        pipeline.addLast(new JoinGroupRequestHandler());
+                        // 退出群聊
+                        pipeline.addLast(new QuitGroupRequestHandler());
+                        // 群成员
+                        pipeline.addLast(new ListGroupMembersRequestHandler());
                         // 退出登录
                         pipeline.addLast(new LogoutRequestHandler());
                         // 响应编码

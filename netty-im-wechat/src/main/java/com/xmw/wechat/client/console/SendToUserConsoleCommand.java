@@ -1,9 +1,10 @@
 package com.xmw.wechat.client.console;
 
-import com.xmw.wechat.protocol.request.MessageRequestPacket;
-import io.netty.channel.Channel;
-
 import java.util.Scanner;
+
+import com.xmw.wechat.protocol.request.MessageRequestPacket;
+
+import io.netty.channel.Channel;
 
 public class SendToUserConsoleCommand implements ConsoleCommand {
     @Override

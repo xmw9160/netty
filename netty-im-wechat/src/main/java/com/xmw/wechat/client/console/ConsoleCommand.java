@@ -1,8 +1,8 @@
 package com.xmw.wechat.client.console;
 
-import io.netty.channel.Channel;
-
 import java.util.Scanner;
+
+import io.netty.channel.Channel;
 
 /**
  * 控制台命令抽象类

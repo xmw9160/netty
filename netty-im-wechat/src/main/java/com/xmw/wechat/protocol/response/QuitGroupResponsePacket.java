@@ -6,23 +6,20 @@ import com.xmw.wechat.protocol.common.Packet;
 import lombok.Data;
 
 /**
- * MessageResponsePacket
+ * 退出群聊响应数据包
  *
  * @author mingwei.xia
- * @date 2018/10/10 14:40
+ * @date 2018/10/17 10:13
  * @since V1.0
  */
 @Data
-public class MessageResponsePacket extends Packet {
-
-    private String fromUserId;
-
-    private String fromUserName;
-
+public class QuitGroupResponsePacket extends Packet {
+    private boolean isSuccess;
+    private String groupId;
     private String message;
 
     @Override
     public Byte getCommand() {
-        return Command.MESSAGE_RESPONSE;
+        return Command.QUIT_GROUP_RESPONSE;
     }
 }
