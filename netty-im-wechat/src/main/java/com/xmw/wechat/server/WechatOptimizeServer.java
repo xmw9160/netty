@@ -5,6 +5,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.xmw.wechat.codec.PacketCodecHandler;
 import com.xmw.wechat.codec.Spliter;
+import com.xmw.wechat.server.handler.IMIdleStateHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.optimize.AuthHandler;
 import com.xmw.wechat.server.handler.optimize.IMHandler;
@@ -45,6 +46,8 @@ public class WechatOptimizeServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        // 空闲检测
+                        pipeline.addLast(new IMIdleStateHandler());
                         // 测试handler生命周期
                         pipeline.addLast(new LifeCyCleTestHandler());
                         // 长度域拆包器-过滤自定义协议请求

@@ -14,6 +14,7 @@ import com.xmw.wechat.client.handler.QuitGroupResponseHandler;
 import com.xmw.wechat.codec.PacketDecoder;
 import com.xmw.wechat.codec.PacketEncoder;
 import com.xmw.wechat.codec.Spliter;
+import com.xmw.wechat.server.handler.IMIdleStateHandler;
 import com.xmw.wechat.util.SessionUtil;
 
 import io.netty.bootstrap.Bootstrap;
@@ -43,6 +44,8 @@ public class WechatClient {
                     @Override
                     protected void initChannel(SocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
+                        // 空闲检测
+                        ch.pipeline().addLast(new IMIdleStateHandler());
                         // 长度域拆包器
                         //pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
                         pipeline.addLast(new Spliter());

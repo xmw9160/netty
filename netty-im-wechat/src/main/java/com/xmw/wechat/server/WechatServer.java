@@ -9,6 +9,7 @@ import com.xmw.wechat.codec.Spliter;
 import com.xmw.wechat.server.handler.AuthHandler;
 import com.xmw.wechat.server.handler.CreateGroupRequestHandler;
 import com.xmw.wechat.server.handler.GroupMessageRequestHandler;
+import com.xmw.wechat.server.handler.IMIdleStateHandler;
 import com.xmw.wechat.server.handler.JoinGroupRequestHandler;
 import com.xmw.wechat.server.handler.LifeCyCleTestHandler;
 import com.xmw.wechat.server.handler.ListGroupMembersRequestHandler;
@@ -48,7 +49,14 @@ public class WechatServer {
                     @Override
                     protected void initChannel(NioSocketChannel ch) {
                         ChannelPipeline pipeline = ch.pipeline();
-                        // 测试handler生命周期
+                        // 空闲检测
+                        pipeline.addLast(new IMIdleStateHandler());
+                        /**
+                         * 测试handler生命周期
+                         * 为什么要插入到最前面？是因为如果插入到最后面的话，如果这条连接读到了数据，
+                         * 但是在 inBound 传播的过程中出错了或者数据处理完完毕就不往后传递了（我们的应用程序属于这类），
+                         * 那么最终 IMIdleStateHandler 就不会读到数据，最终导致误判。
+                         */
                         pipeline.addLast(new LifeCyCleTestHandler());
                         // 长度域拆包器-过滤自定义协议请求
                         //pipeline.addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
