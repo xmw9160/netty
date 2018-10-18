@@ -30,6 +30,9 @@ public class LoginResponseHandler extends SimpleChannelInboundHandler<LoginRespo
         packet.setUserName("青禾" + userId);
         packet.setPassword("8888");
         ctx.channel().writeAndFlush(packet);
+        // 继续触发后续ChannelHandler的channelActive()
+        // 触发客户端心跳检测
+        ctx.fireChannelActive();
     }
 
     @Override

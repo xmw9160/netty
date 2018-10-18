@@ -21,7 +21,7 @@ public class NettyServer {
     public static void main(String[] args) {
         // boss 对应 IOServer.java 中的接受新连接线程，主要负责创建新连接
         NioEventLoopGroup boss = new NioEventLoopGroup();
-        // worker 对应 IOClient.java 中的负责读取数据的线程，主要用于读取数据以及业务逻辑处理
+        // worker 对应 IOServer.java 中的负责读取数据的线程，主要用于读取数据以及业务逻辑处理
         NioEventLoopGroup worker = new NioEventLoopGroup();
         ServerBootstrap bootstrap = new ServerBootstrap();
         bootstrap.group(boss, worker)
